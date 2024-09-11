@@ -1,4 +1,4 @@
-## Project Management Project
+## Project Management
 
 Maintain projects, separated by tasks adding users and teams.
 Frontend and Backend present.
