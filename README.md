@@ -18,6 +18,7 @@ Backend Tecnologies:
     - EC2
     - Cognito
     - Amplify
+    - RDS
 - Node.js
 - Express.js
 - PostgreSQL
