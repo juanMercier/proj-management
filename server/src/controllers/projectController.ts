@@ -35,5 +35,4 @@ export const createProject = async (
     catch (err: any) {
         res.status(500).json({ message: `Error creating Project: ${err.message}` });
     }
-
 }
