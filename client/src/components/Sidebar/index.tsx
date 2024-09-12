@@ -2,6 +2,7 @@
 
 import { useAppDispatch, useAppSelector } from '@/app/redux';
 import { setIsSidebarCollapsed } from '@/state';
+import { useGetProjectsQuery } from '@/state/api';
 import { AlertCircle, AlertOctagon, AlertTriangle, Briefcase, ChevronDown, ChevronUp, Home, Layers3, LockIcon, LucideIcon, Search, Settings, ShieldAlert, User, Users, X } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -77,6 +78,8 @@ const Sidebar = () => {
     const [showProjects, setShowProjects] = useState(true);
     const [showPriority, setShowPriority] = useState(true);
 
+
+    const { data: projects } = useGetProjectsQuery();
     const dispatch = useAppDispatch();
     const isSidebarCollapsed = useAppSelector((state) => state.global.isSidebarCollapsed);
 
@@ -85,7 +88,7 @@ const Sidebar = () => {
     return (
         <div className={sideClassnames}>
             <div className='flex h-[100%] w-full flex-col justify-start'>
-                {/* Top Logo */}
+                {/* TOP LOGO */}
                 <div className='z-50 flex min-h-[56px] w-64 items-center justify-between bg-white px-6 pt-3 dark:bg-black'>
                     <div className='text-xl font-bold text-gray-800 dark:text-white'>
                         JOAOLIST
@@ -109,6 +112,7 @@ const Sidebar = () => {
                         </div>
                     </div>
                 </div>
+                {/* NAVBAR */}
                 <nav className='z-10 w-full'>
                     {sidebarLinks.map((item, index) => {
                         return (
@@ -120,27 +124,6 @@ const Sidebar = () => {
                         );
                     })}
                 </nav>
-                {/* PRIORITY LINKS */}
-                <button onClick={() => setShowPriority((prev) => !prev)} className='flex w-full items-center justify-between px-8 py-3 text-gray-500'>
-                    <span className=''>
-                        Priority
-                    </span>
-                    {showPriority
-                        ? <ChevronUp className='h-5 w-5' />
-                        : <ChevronDown className='h-5 w-5' />
-                    }
-                </button>
-                {
-                    showPriority && priorityLinks.map((item, index) => {
-                        return (
-                            <SidebarLink key={index}
-                                icon={item.icon}
-                                label={item.label}
-                                href={item.href}
-                            />
-                        )
-                    })
-                }
                 {/* PROJECTS LINKS */}
                 <button onClick={() => setShowProjects((prev) => !prev)} className='flex w-full items-center justify-between px-8 py-3 text-gray-500'>
                     <span className=''>
@@ -152,6 +135,38 @@ const Sidebar = () => {
                     }
                 </button>
                 {/* PROJECTS LIST */}
+                {showProjects
+                    && projects?.map((project) => {
+                        return <SidebarLink
+                            key={project.id}
+                            icon={Briefcase}
+                            label={project.name}
+                            href={`projects/${project.id}`}
+                        />
+                    })
+                }
+                {/* PRIORITY LINKS */}
+                <button onClick={() => setShowPriority((prev) => !prev)} className='flex w-full items-center justify-between px-8 py-3 text-gray-500'>
+                    <span className=''>
+                        Priority
+                    </span>
+                    {showPriority
+                        ? <ChevronUp className='h-5 w-5' />
+                        : <ChevronDown className='h-5 w-5' />
+                    }
+                </button>
+                {/* PRIORITY LIST */}
+                {showPriority
+                    && priorityLinks.map((item, index) => {
+                        return (
+                            <SidebarLink key={index}
+                                icon={item.icon}
+                                label={item.label}
+                                href={item.href}
+                            />
+                        )
+                    })
+                }
             </div>
         </div>
     )
