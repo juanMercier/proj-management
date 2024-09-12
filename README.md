@@ -20,3 +20,5 @@ Backend Tecnologies:
     - Amplify
 - Node.js
 - Express.js
+- PostgreSQL
+- Prisma
