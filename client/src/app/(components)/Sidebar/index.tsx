@@ -120,7 +120,7 @@ const Sidebar = () => {
                         );
                     })}
                 </nav>
-                {/* PRIORUTY LINKS */}
+                {/* PRIORITY LINKS */}
                 <button onClick={() => setShowPriority((prev) => !prev)} className='flex w-full items-center justify-between px-8 py-3 text-gray-500'>
                     <span className=''>
                         Priority
