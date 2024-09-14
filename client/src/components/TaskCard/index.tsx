@@ -3,6 +3,7 @@ import { Task as TaskType } from "@/state/api"
 import Image from 'next/image'
 import { format } from 'date-fns'
 import PriorityTag from '@/components/PriorityTag'
+import { Fade, Tooltip } from '@mui/material'
 
 type TaskCardProps = {
     task: TaskType
@@ -26,7 +27,8 @@ const TaskCard = ({ task }: TaskCardProps) => {
 
 
     return (
-        <div className='mb-3 rounded bg-white p-4 shadow dark:bg-dark-secondary dark:text-white'>
+        <div className='mb-3 rounded-lg bg-white p-4 shadow dark:bg-dark-secondary dark:text-white'>
+            {/* ATTACHMENT */}
             {task.attachments && task.attachments.length > 0 && (
                 <div>
                     <strong>Attachments:</strong>
@@ -43,29 +45,35 @@ const TaskCard = ({ task }: TaskCardProps) => {
                     </div>
                 </div>
             )}
+            {/* TITLE */}
             <p className='pb-1'>
                 <strong>Title: </strong>
                 {task.title}
             </p>
-            {task.description &&
+            {/* DESCRIPTION */}
+            {task.description && (
                 <p className='pb-1'>
                     <strong>Description: </strong>
                     {task.description}
                 </p>
-            }
-            {task.status &&
+            )}
+            {/* STATUS */}
+            {task.status && (
+
                 <p className='pb-1'>
                     <strong>Status: </strong>
                     {task.status}
                 </p>
-            }
-            {task.priority &&
+            )}
+            {/* PRIORITY */}
+            {task.priority && (
                 <p className='flex flex-row gap-2 pb-1'>
                     <strong>Priority: </strong>
                     <PriorityTag priority={task.priority} />
                 </p>
-            }
-            {task.tags &&
+            )}
+            {/* TAGS */}
+            {task.tags && (
                 <p className='flex flex-row gap-2  pb-1'>
                     <strong>Tags: </strong>
                     <div className='flex gap-2'>
@@ -77,43 +85,63 @@ const TaskCard = ({ task }: TaskCardProps) => {
                         ))}
                     </div>
                 </p>
-            }
-            {formattedStartDate &&
+            )}
+            {/* START DATE */}
+            {formattedStartDate && (
                 <p className='pb-1'>
                     <strong>Start Date: </strong>
                     {formattedStartDate}
                 </p>
-            }
-            {formattedDueDate &&
+            )}
+            {/* DUE DATE */}
+            {formattedDueDate && (
                 <p className='pb-1'>
                     <strong>Due Date: </strong>
                     {formattedDueDate}
                 </p>
-            }
+            )}
+            {/* AUTHOR */}
             {task.author && (
                 <p className='flex items-center flex-row gap-2  pb-1'>
                     <strong>Author: </strong>
-                    <Image
-                        key={task.author.userId}
-                        src={`/${task.author.profilePictureUrl!}`}
-                        alt={task.author.username}
-                        width={30}
-                        height={30}
-                        className='h-8 w-8 rounded-full border-2 border-white object-cover dark:border-dark-secondary'
-                    />
+                    <Tooltip
+                        title={task.author.username}
+                        placement="top"
+                        arrow
+                        TransitionComponent={Fade}
+                        TransitionProps={{ timeout: 600 }}
+                    >
+                        <Image
+                            key={task.author.userId}
+                            src={`/${task.author.profilePictureUrl!}`}
+                            alt={task.author.username}
+                            width={30}
+                            height={30}
+                            className='h-8 w-8 rounded-full border-2 border-white object-cover dark:border-dark-secondary'
+                        />
+                    </Tooltip>
                 </p>
             )}
+            {/* ASSIGNEE */}
             {task.assignee && (
                 <p className='flex items-center flex-row gap-2  pb-1'>
                     <strong>Assignee: </strong>
-                    <Image
-                        key={task.assignee.userId}
-                        src={`/${task.assignee.profilePictureUrl!}`}
-                        alt={task.assignee.username}
-                        width={30}
-                        height={30}
-                        className='h-8 w-8 rounded-full border-2 border-white object-cover dark:border-dark-secondary'
-                    />
+                    <Tooltip
+                        title={task.assignee.username}
+                        placement="top"
+                        arrow
+                        TransitionComponent={Fade}
+                        TransitionProps={{ timeout: 600 }}
+                    >
+                        <Image
+                            key={task.assignee.userId}
+                            src={`/${task.assignee.profilePictureUrl!}`}
+                            alt={task.assignee.username}
+                            width={30}
+                            height={30}
+                            className='h-8 w-8 rounded-full border-2 border-white object-cover dark:border-dark-secondary'
+                        />
+                    </Tooltip>
                 </p>
             )}
         </div>
