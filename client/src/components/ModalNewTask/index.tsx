@@ -35,7 +35,7 @@ const ModalNewTask = ({ isOpen, onClose, id = null }: Props) => {
     await createTask({
       title,
       description,
-      status,
+      status: (status as Status),
       priority,
       tags,
       startDate: formattedStartDate,
@@ -47,7 +47,7 @@ const ModalNewTask = ({ isOpen, onClose, id = null }: Props) => {
   };
 
   const isFormValid = () => {
-    return title && authorUserId && !(id !== null || projectId);
+    return title && authorUserId && (id !== null || projectId);
   };
 
   const selectStyles =
@@ -63,6 +63,7 @@ const ModalNewTask = ({ isOpen, onClose, id = null }: Props) => {
         onSubmit={(e) => {
           e.preventDefault();
           handleSubmit();
+          // onClose();
         }}
       >
         <input
