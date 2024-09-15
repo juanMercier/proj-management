@@ -68,7 +68,7 @@ const columns: GridColDef[] = [
     width: 75,
     renderCell: (params) => (
       <div className='flex items-center justify-start py-3'>
-        <UserImage user={params.value}/>
+        <UserImage user={params.value} />
       </div>
     )
   },
@@ -78,24 +78,39 @@ const columns: GridColDef[] = [
     width: 75,
     renderCell: (params) => (
       <div className='flex items-center justify-start py-3'>
-        <UserImage user={params.value}/>
+        <UserImage user={params.value} />
       </div>
     )
   },
 ]
 
+
 const Table = ({ id, setIsModalNewTaskOpen }: TableProps) => {
   const isDarkMode = useAppSelector((state) => state.global.isDarkMode);
-  const { data: tasks, isLoading, error } = useGetTasksQuery({ projectId: Number(id) })
+  const {
+    data: tasks,
+    error,
+    isLoading,
+  } = useGetTasksQuery({ projectId: Number(id) });
 
-  if (isLoading) return <div>Loading...</div>
-  if (error) return <div>Error has occured while getting Tasks</div>
-
+  if (isLoading) return <div>Loading...</div>;
+  if (error || !tasks) return <div>An error occurred while fetching tasks</div>;
 
   return (
-    <div className='h-[540px] w-full px-4 pb-8 xl:px-6'>
-      <div className='pt-5'>
-        <Header name='Table' isSmallText />
+    <div className="h-[400px] w-full px-4 pb-8 xl:px-6">
+      <div className="pt-5">
+        <Header
+          name="Table"
+          buttonComponent={
+            <button
+              className="flex items-center rounded bg-blue-primary px-3 py-2 text-white hover:bg-blue-600"
+              onClick={() => setIsModalNewTaskOpen(true)}
+            >
+              Add Task
+            </button>
+          }
+          isSmallText
+        />
       </div>
       <DataGrid
         rows={tasks || []}
@@ -104,7 +119,7 @@ const Table = ({ id, setIsModalNewTaskOpen }: TableProps) => {
         sx={dataGridSxStyles(isDarkMode)}
       />
     </div>
-  )
+  );
 }
 
 export default Table
