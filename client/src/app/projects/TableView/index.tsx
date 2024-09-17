@@ -76,7 +76,7 @@ const columns: GridColDef[] = [
     field: "assignee",
     headerName: "Assignee",
     width: 75,
-    renderCell: (params) => (
+    renderCell: (params) => (params.value &&
       <div className='flex items-center justify-start py-3'>
         <UserImage user={params.value} />
       </div>
