@@ -18,7 +18,7 @@ const UserImage = ({ user }: UserImageProps) => {
         >
             <Image
                 key={user.userId}
-                src={`/${user.profilePictureUrl!}`}
+                src={`https://proj-manag.s3.amazonaws.com/${user.profilePictureUrl!}`}
                 alt={user.username}
                 width={30}
                 height={30}
