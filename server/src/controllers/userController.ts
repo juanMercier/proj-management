@@ -43,3 +43,22 @@ export const createUser = async (
         res.status(500).json({message: "Error creating user:", error});
     }
 }
+
+export const getUser = async (
+    req: Request,
+    res: Response
+): Promise<void> => {
+    const { cognitoId } = req.params;
+
+    try {
+        const user = await prisma.user.findUnique({
+            where: {
+                cognitoId: cognitoId
+            }
+        });
+        res.json(user)
+    }
+    catch (err: any) {
+        res.status(500).json({ message: `Error getting User: ${err.message}` })
+    }
+}
