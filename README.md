@@ -6,9 +6,9 @@ Frontend and Backend present.
 Frontend technologies:
 
 - Typescript
-- React.js
 - Next.js
 - Tailwind CSS
+- MUI
 - Redux Toolkit
 - Redux Query
 
@@ -19,7 +19,23 @@ Backend Tecnologies:
     - Cognito
     - Amplify
     - RDS
+    - API Gateway
+    - Lambda
 - Node.js
 - Express.js
 - PostgreSQL
 - Prisma
+
+
+Dependencies Used:
+
+- axios
+- date-fns
+- lodash
+- redux
+- react-dnd
+- recharts
+- mui
+- aws-amplify
+- gantt-task-react
+- dotenv
